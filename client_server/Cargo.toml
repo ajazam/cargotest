@@ -1,0 +1,24 @@
+[package]
+name = "cargotest"
+version = "0.1.0"
+authors = ["Abdul Jabbar Azam <ajazam@technolog.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "client"
+path = "src/client/client.rs"
+
+[[bin]]
+name = "server"
+path = "src/server/server.rs"
+
+[dependencies]
+tonic = "0.3"
+prost = "0.6"
+tokio = { version = "0.2", features = ["macros"]}
+shared-lib = { path="../shared-lib" }
+
+[build-dependencies]
+tonic-build = "0.3"
