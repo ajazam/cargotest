@@ -5,7 +5,7 @@ on:
     types: [published]
 
 jobs:
-  build:
+  deploy-to-s3:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -23,18 +23,13 @@ jobs:
         run: cargo fetch
       - name: Build
         run: cargo build --verbose
-
-  deploy:
-    needs: [build]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: jakejarvis/s3-sync-action@master
-      with:
-        args: --follow-symlinks 
-      env:
-        AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
-        AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.REGION }}
-        SOURCE_DIR: './target/debug/client.exe'
-        DEST_DIR: ${{ secrets.DEST_DIR }}
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --follow-symlinks
+        env:
+          AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
+          AWS_REGION: ${{ secrets.REGION }}
+          SOURCE_DIR: './target/debug/client.exe'
+          DEST_DIR: ${{ secrets.DEST_DIR }}Release
