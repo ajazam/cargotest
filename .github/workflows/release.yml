@@ -5,31 +5,31 @@ on:
     types: [published]
 
 jobs:
-#  build:
-#    runs-on: windows-latest
-#    steps:
-#      - uses: actions/checkout@v2
-#      - name: Cache cargo dependencies
-#        id: cache-cargo
-#        uses: actions/cache@v2
-#        with:
-#          path: |
-#            ~/.cargo/registry
-#            ~/.cargo/git
-#            target
-#          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-#      - name: Fetch dependencies
-#        if: steps.cache-cargo.outputs.cache-hit != 'true'
-#        run: cargo fetch
-#      - name: Build
-#        run: cargo build  --verbose
-#      - uses: actions/upload-artifact@v2
-#        with:
-#         name: client.exe
-#         path: './target/debug/client.exe'
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache cargo dependencies
+        id: cache-cargo
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Fetch dependencies
+        if: steps.cache-cargo.outputs.cache-hit != 'true'
+        run: cargo fetch
+      - name: Build
+        run: cargo build  --verbose
+      - uses: actions/upload-artifact@v2
+        with:
+         name: client.exe
+         path: './target/debug/client.exe'
 
   deploy-to-s3:
-      #needs: build
+      needs: build
       runs-on: ubuntu-latest
       steps:
       - uses: actions/download-artifact@v2
