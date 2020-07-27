@@ -56,11 +56,11 @@ jobs:
           done
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks
+          args: --follow-symlinks --exclude '*' --include 'client.exe'
         env:
           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.REGION }}
-          SOURCE_DIR: '/home/runner/work/cargotest/cargotest/client.exe'
-          DEST_DIR: ${{ secrets.DEST_DIR }}Release
+          #SOURCE_DIR: '/home/runner/work/cargotest/cargotest/client.exe'
+          DEST_DIR: ${{ secrets.DEST_DIR }}
