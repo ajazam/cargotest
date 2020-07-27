@@ -36,6 +36,9 @@ jobs:
         with:
           name: client.exe
           path: /home/runner/work/cargotest
+
+      - name: list files
+        run: ls -R
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
