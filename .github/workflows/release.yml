@@ -35,9 +35,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: client.exe
-          path: /home/runner/work/cargotest
-      - name: Run tree
-        run: tree
+          path: /home/runner/work/client.exe
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
@@ -46,5 +44,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.REGION }}
-          SOURCE_DIR: '/home/runner/work/cargotest/client.exe'
+          SOURCE_DIR: '/home/runner/work/client.exe'
           DEST_DIR: ${{ secrets.DEST_DIR }}Release
