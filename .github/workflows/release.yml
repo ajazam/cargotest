@@ -37,8 +37,10 @@ jobs:
           name: client.exe
           path: /home/runner/work/cargotest
 
-      - name: show current directory
-        run: ls client.exe
+      - name: install tree package
+        run: sudo apt-get install tree
+      - name: show workspace structure
+        run: tree
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
