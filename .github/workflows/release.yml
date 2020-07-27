@@ -22,7 +22,7 @@ jobs:
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         run: cargo fetch
       - name: Build
-        run: cargo build --verbose
+        run: cargo build --frozen --verbose
       - uses: actions/upload-artifact@v2
         with:
          name: client.exe
@@ -38,7 +38,7 @@ jobs:
           path: /home/runner/work/cargotest
 
       - name: list files
-        run: tree .
+        run: ls -l
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
