@@ -5,12 +5,17 @@ on:
     types: [published]
 
 jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build
+        run: cargo build --verbose
+
   deploy:
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Build
-      run: cargo build --verbose
     - uses: jakejarvis/s3-sync-action@master
       with:
         args: --follow-symlinks 
