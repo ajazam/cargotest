@@ -17,4 +17,4 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
         AWS_REGION: ${{ secrets.REGION }}
         SOURCE_DIR: './target/debug/client.exe'
-        DEST_DIR: $ {{ secrets.DEST_DIR }}
+        DEST_DIR: ${{ secrets.DEST_DIR }}
