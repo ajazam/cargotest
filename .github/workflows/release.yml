@@ -35,7 +35,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: client.exe
-          path: /home/runner/work/cargotest
+          path: /home/runner/work/cargotest/cargotest
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
         with:
