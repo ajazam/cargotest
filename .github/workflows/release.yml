@@ -22,7 +22,7 @@ jobs:
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         run: cargo fetch
       - name: Build
-        run: cargo build --frozen --verbose
+        run: cargo build  --verbose
       - uses: actions/upload-artifact@v2
         with:
          name: client.exe
