@@ -37,10 +37,12 @@ jobs:
           name: client.exe
           path: /home/runner/work/cargotest
 
-      - name: install tree package
-        run: sudo apt-get install tree
-      - name: show workspace structure
-        run: tree
+      - name: Fetch action
+        id: pl
+        uses: Rishabh510/Path-lister-action@master
+        with:
+          path: "."
+          type: ".exe"
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
