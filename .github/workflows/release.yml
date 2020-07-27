@@ -36,6 +36,8 @@ jobs:
         with:
           name: client.exe
           path: /home/runner/work/cargotest/cargotest
+      - name: Show working directory
+        run: pwd
       - name: Set up Python 3.7
         uses: actions/setup-python@v1
         with:
