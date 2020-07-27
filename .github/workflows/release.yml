@@ -37,8 +37,8 @@ jobs:
           name: client.exe
           path: /home/runner/work/cargotest
 
-      - name: list files
-        run: ls -l
+      - name: show current directory
+        run: pwd
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks
