@@ -9,7 +9,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
-        -
+
       - name: Cache cargo dependencies
         id: cache-cargo
         uses: actions/cache@v2
