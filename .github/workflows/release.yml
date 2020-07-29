@@ -9,6 +9,7 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
+        -
       - name: Cache cargo dependencies
         id: cache-cargo
         uses: actions/cache@v2
@@ -18,11 +19,14 @@ jobs:
             ~/.cargo/git
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
       - name: Fetch dependencies
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         run: cargo fetch
+
       - name: Build
         run: cargo build  --verbose
+
       - uses: actions/upload-artifact@v2
         with:
          name: client.exe
@@ -43,19 +47,49 @@ jobs:
             ~/.cargo/git
             target
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
       - name: Fetch dependencies
         if: steps.cache-cargo.outputs.cache-hit != 'true'
         run: cargo fetch
+
       - name: Build
         run: cargo build  --verbose
+
       - name: Branch name
         run: echo running on branch ${GITHUB_REF##*/}
-      - name: Build and upload image
+
+#      - name: Build and upload image
+#        run: |
+#          aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin ${PASSWORD-STDIN}
+#          docker build -t ${REPO_NAME} .
+#          docker tag ${REPO_NAME}:latest ${PASSWORD-STDIN}/${REPO_NAME}:latest
+#          docker push ${PASSWORD-STDIN}/${REPO_NAME}:latest
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.ECR_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.ECR_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: my-ecr-repo
+          IMAGE_TAG: ${{ github.sha }}
         run: |
-          aws ecr get-login-password --region eu-west-2 | docker login --username AWS --password-stdin ${PASSWORD-STDIN}
-          docker build -t ${REPO_NAME} .
-          docker tag ${REPO_NAME}:latest ${PASSWORD-STDIN}/${REPO_NAME}:latest
-          docker push ${PASSWORD-STDIN}/${REPO_NAME}:latest
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
       - name: List docker images
         run: docker image list
 
@@ -67,6 +101,7 @@ jobs:
         with:
           name: client.exe
           path: /home/runner/work/cargotest/cargotest
+
       - name: Show working directory
         run: pwd
 #      - name: Set up Python 3.7
@@ -85,6 +120,7 @@ jobs:
 #          for i in ${{ steps.pl.outputs.paths }}; do
 #          echo $i
 #          done
+      -
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --exclude '*' --include 'client.exe'
