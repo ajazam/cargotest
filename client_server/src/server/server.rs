@@ -33,11 +33,11 @@ impl Greeter for MyGreeter {
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let addr = "0.0.0.0:50051".parse()?;
     let greeter = MyGreeter::default();
-
+    println!("starting server");
     Server::builder()
         .add_service(GreeterServer::new(greeter))
         .serve(addr)
         .await?;
-
+    println!("Exiting server");
     Ok(())
 }
