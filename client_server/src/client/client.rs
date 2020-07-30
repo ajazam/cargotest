@@ -7,7 +7,13 @@ pub mod hello_world {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = GreeterClient::connect("http://[::1]:50051").await?;
+    use std::env;
+
+    let args: Vec<String> = env::args().collect();
+    println!("args are {:?}", args);
+    let addr = format!("http://{}:50051", args[1]);
+    println!("addr is {:?}", addr);
+    let mut client = GreeterClient::connect(addr).await?;
 
     let request = tonic::Request::new(HelloRequest {
         name: "Tonic".into(),
