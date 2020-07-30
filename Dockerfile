@@ -1,3 +1,3 @@
 FROM scratch
-COPY ./cargotest/target/debug/server .
+COPY ./target/debug/server.exe .
 ENTRYPOINT ["server"]
