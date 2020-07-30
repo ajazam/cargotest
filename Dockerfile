@@ -1,3 +1,3 @@
 FROM scratch
-COPY ./target/debug/server.exe .
-ENTRYPOINT ["server"]
+COPY ./target/debug/server .
+CMD ["./server"]
