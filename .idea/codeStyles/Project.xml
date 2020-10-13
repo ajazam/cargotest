@@ -10,12 +10,6 @@
       </case-options>
       <formatting-settings enabled="false" />
     </DBN-PSQL>
-    <RsCodeStyleSettings>
-      <option name="ALIGN_WHERE_CLAUSE" value="true" />
-      <option name="ALIGN_TYPE_PARAMS" value="true" />
-      <option name="ALLOW_ONE_LINE_MATCH" value="true" />
-      <option name="PRESERVE_PUNCTUATION" value="true" />
-    </RsCodeStyleSettings>
     <DBN-SQL>
       <case-options enabled="true">
         <option name="KEYWORD_CASE" value="lower" />
@@ -30,6 +24,12 @@
         <option name="ITERATION_ELEMENTS_WRAPPING" value="chop_down_if_not_single" />
       </formatting-settings>
     </DBN-SQL>
+    <RsCodeStyleSettings>
+      <option name="ALIGN_WHERE_CLAUSE" value="true" />
+      <option name="ALIGN_TYPE_PARAMS" value="true" />
+      <option name="ALLOW_ONE_LINE_MATCH" value="true" />
+      <option name="PRESERVE_PUNCTUATION" value="true" />
+    </RsCodeStyleSettings>
     <codeStyleSettings language="Rust">
       <option name="ALIGN_MULTILINE_CHAINED_METHODS" value="true" />
     </codeStyleSettings>
