@@ -81,7 +81,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.S3_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.REGION }}
           DEST_DIR: ${{ secrets.DEST_DIR }}
-
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --follow-symlinks --exclude '*' --include 'server'
