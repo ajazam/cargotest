@@ -66,7 +66,6 @@ jobs:
       steps:
       - uses: actions/download-artifact@v2
         with:
-          name: client.exe
           path: /home/runner/work/cargotest/cargotest
 
       - name: Show working directory
