@@ -30,7 +30,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
          name: client.exe
-         path: './target/debug'
+         path: './target/debug/client.exe'
 
   build-linux-image:
     runs-on: ubuntu-latest
@@ -67,6 +67,13 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           path: /home/runner/work/cargotest/cargotest
+
+      - name: Fetch action
+          id: pl
+          uses: Rishabh510/Path-lister-action@master
+          with:
+            path: "."
+            type: "*"
 
       - name: Show working directory
         run: pwd
