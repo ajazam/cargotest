@@ -36,37 +36,36 @@ jobs:
          name: client.exe
          path: './target/debug/client.exe'
 
-#   build-linux-image:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Git checkout
-#         uses: actions/checkout@v2
+  build-linux-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git checkout
+        uses: actions/checkout@v2
 
-#       - name: Cache cargo dependencies
-#         id: cache-cargo
-#         uses: actions/cache@v2
-#         with:
-#           path: |
-#             ~/.cargo/registry
-#             ~/.cargo/git
-#             target
-#           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - name: Cache cargo dependencies
+        id: cache-cargo
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
-#       - name: Fetch dependencies
-#         if: steps.cache-cargo.outputs.cache-hit != 'true'
-#         run: cargo fetch
+      - name: Fetch dependencies
+        if: steps.cache-cargo.outputs.cache-hit != 'true'
+        run: cargo fetch
 
-#       - name: Build
-#         run: cargo build  --verbose
+      - name: Build
+        run: cargo build  --verbose
 
-#       - uses: actions/upload-artifact@v2
-#         with:
-#           name: server
-#           path: './target/debug/server'
+      - uses: actions/upload-artifact@v2
+        with:
+          name: server
+          path: './target/debug/server'
 
   deploy-to-s3:
-      #needs: [build,build-linux-image]
-      needs: [build]
+      needs: [build,build-linux-image]
       runs-on: ubuntu-latest
       steps:
       - uses: actions/download-artifact@v2
@@ -81,7 +80,7 @@ jobs:
 
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks  --exclude '*' --include 'client.exe'
+          args: --follow-symlinks  --include '*'
         env:
           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
