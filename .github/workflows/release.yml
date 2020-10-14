@@ -55,16 +55,13 @@ jobs:
       - name: Build
         run: cargo build  --verbose
 
-      - name: ls
-        run: ls target/debug/*
-
       - uses: actions/upload-artifact@v2
         with:
           name: server
           path: './target/debug/server'
 
   deploy-to-s3:
-      needs: build
+      needs: [build,build-linux-image]
       runs-on: ubuntu-latest
       steps:
       - uses: actions/download-artifact@v2
