@@ -68,13 +68,11 @@ jobs:
         with:
           path: /home/runner/work/cargotest/cargotest
 
-      - uses: Rishabh510/Path-lister-action@master
-        with:
-          path: '.'
-          type: '*'
-
       - name: Show working directory
         run: pwd
+
+      - name: list files recursively in working directory
+        run: ls -lR
 
       - uses: jakejarvis/s3-sync-action@master
         with:
