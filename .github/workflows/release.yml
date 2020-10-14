@@ -33,7 +33,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-         name: client.exe
+         #name: client.exe
          path: './target/debug/client.exe'
 
 #   build-linux-image:
