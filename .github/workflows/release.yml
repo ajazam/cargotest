@@ -32,7 +32,7 @@ jobs:
          name: client.exe
          path: './target/debug/client.exe'
 
-  build-linux-iamge:
+  build-linux-image:
     runs-on: ubuntu-latest
     steps:
       - name: Git checkout
