@@ -30,7 +30,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
          name: client.exe
-         path: './target/debug/client.exe'
+         path: './target/debug'
 
   build-linux-image:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: server
-          path: './target/debug/server'
+          path: './target/debug/server/server'
 
   deploy-to-s3:
       needs: [build,build-linux-image]
