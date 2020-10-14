@@ -68,12 +68,10 @@ jobs:
         with:
           path: /home/runner/work/cargotest/cargotest
 
-      - name: Fetch action
-          id: pl
-          uses: Rishabh510/Path-lister-action@master
-          with:
-            path: "."
-            type: "*"
+      - uses: Rishabh510/Path-lister-action@master
+        with:
+          path: '.'
+          type: '*'
 
       - name: Show working directory
         run: pwd
