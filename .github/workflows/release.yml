@@ -28,7 +28,8 @@ jobs:
         run: cargo build  --verbose
         
       - name: list workspace contents
-        run: dir //b //s //a
+        run: dir /b /s /a
+        shell: cmd
 
       - uses: actions/upload-artifact@v2
         with:
