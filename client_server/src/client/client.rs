@@ -11,7 +11,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let args: Vec<String> = env::args().collect();
     println!("args are {:?}", args);
-    let addr = format!("http://{}:443", args[1]);
+    let addr = format!("http://{}:50051", args[1]);
     println!("addr is {:?}", addr);
     let mut client = GreeterClient::connect(addr).await?;
 
