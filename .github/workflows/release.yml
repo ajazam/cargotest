@@ -26,6 +26,10 @@ jobs:
 
       - name: Build
         run: cargo build  --verbose
+        
+      - name: list workspace contents
+        run: dir /b /s /a
+        shell: cmd
 
       - uses: actions/upload-artifact@v2
         with:
@@ -76,7 +80,7 @@ jobs:
 
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --follow-symlinks  --exclude '*' --include './client.exe/client.exe'
+          args: --follow-symlinks  --include '*'
         env:
           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.S3_ACCESS_KEY_ID }}
